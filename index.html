@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Martín & Mafer 💛</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Georgia',serif;min-height:100vh;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);display:flex;align-items:center;justify-content:center;padding:12px;overflow-x:hidden;transition:background 1.2s ease;}
+#app{width:100%;max-width:450px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:10px 0 20px;}
+.card{background:linear-gradient(160deg,#fff9f0,#fff0f8);border-radius:30px;padding:28px 22px 32px;width:100%;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,0.5);border:3px solid rgba(255,180,200,0.4);position:relative;overflow:hidden;}
+.flotante{position:fixed;pointer-events:none;animation:flotar linear infinite;z-index:0;}
+@keyframes flotar{0%{transform:translateY(100vh) rotate(0deg) scale(0.4);opacity:0;}5%{opacity:.85;}95%{opacity:.85;}100%{transform:translateY(-15vh) rotate(360deg) scale(.9);opacity:0;}}
+.titulo{font-size:1.55em;color:#8B1A4A;font-weight:bold;letter-spacing:1px;margin-bottom:4px;animation:brillar 2.5s infinite;}
+@keyframes brillar{0%,100%{text-shadow:0 0 8px rgba(139,26,74,.4)}50%{text-shadow:0 0 28px rgba(139,26,74,1)}}
+.cap-label{font-size:.75em;color:#c0a0b0;font-style:italic;margin-bottom:10px;letter-spacing:3px;text-transform:uppercase;}
+.mono{font-size:5em;display:inline-block;cursor:pointer;transition:transform .2s;line-height:1;}
+.mono:hover{transform:scale(1.2) translateY(-8px);}
+.mono.bailar{animation:bailarMono .7s ease infinite;}
+@keyframes bailarMono{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(12deg)}}
+.mono-label{font-size:.85em;color:#8B1A4A;font-weight:bold;margin-top:6px;}
+.monos-row{display:flex;justify-content:center;align-items:flex-end;gap:18px;margin:14px 0;}
+.mono-col{display:flex;flex-direction:column;align-items:center;}
+.corazon{font-size:2.5em;animation:latir 1.1s infinite;display:inline-block;align-self:center;margin-bottom:18px;}
+@keyframes latir{0%,100%{transform:scale(1)}50%{transform:scale(1.35)}}
+.narrativa{background:linear-gradient(135deg,#fff3e0,#ffe8f0);border-radius:18px;padding:16px 18px;margin:12px 0;border-left:5px solid #c0395a;font-size:.97em;color:#4a2010;line-height:1.7;font-style:italic;text-align:left;}
+.narrativa-emoji{font-size:1.8em;display:block;text-align:center;margin-bottom:8px;}
+.narrativa-firma{font-size:.8em;color:#b06030;font-weight:bold;margin-top:8px;text-align:right;}
+.perfil-card{background:linear-gradient(135deg,#fff0f8,#ffe8d0);border-radius:20px;padding:18px 16px;margin:12px 0;border:2px solid rgba(192,57,90,.25);text-align:left;}
+.perfil-fila{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;font-size:.93em;color:#4a2010;line-height:1.5;}
+.perfil-fila span:first-child{font-size:1.2em;min-width:24px;}
+.perfil-nombre{font-size:1.4em;color:#8B1A4A;font-weight:bold;margin-bottom:12px;text-align:center;}
+.quiz-pregunta{font-size:.95em;color:#6a2040;font-weight:bold;margin:12px 0 10px;text-align:center;}
+.opciones{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.opcion{border:2px solid #c0395a;background:#fff;color:#6a2040;border-radius:40px;padding:10px 16px;font-size:.92em;font-family:'Georgia',serif;cursor:pointer;transition:all .25s;text-align:left;}
+.opcion:hover{background:#fff0f5;transform:scale(1.03);}
+.opcion.correcta{background:#ffe0f0;border-color:#8B1A4A;color:#4a001a;font-weight:bold;}
+.opcion.incorrecta{animation:temblar .5s;border-color:#e74c3c;background:#fdecea;}
+@keyframes temblar{0%,100%{transform:translateX(0)}25%,75%{transform:translateX(-8px)}50%{transform:translateX(8px)}}
+.btn-sig{background:linear-gradient(135deg,#c0395a,#8B1A4A);color:#fff;border:none;border-radius:50px;padding:13px 32px;font-size:1.05em;font-family:'Georgia',serif;cursor:pointer;box-shadow:0 6px 20px rgba(139,26,74,.5);transition:all .2s;width:100%;margin-top:10px;}
+.btn-sig:hover{transform:scale(1.04);}
+.btn-sig:active{transform:scale(0.97);}
+.progreso{display:flex;justify-content:center;gap:7px;margin-top:14px;}
+.punto{width:10px;height:10px;border-radius:50%;background:#ddd;transition:all .3s;}
+.punto.activo{background:#c0395a;transform:scale(1.3);}
+.pieza{position:absolute;border-radius:50%;pointer-events:none;animation:caer 1.8s ease-out forwards;z-index:200;}
+@keyframes caer{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(140px) rotate(360deg) translateX(var(--dx))}}
+.badge{position:absolute;top:10px;right:10px;border-radius:20px;padding:5px 12px;font-size:.8em;font-weight:bold;animation:popIn .4s ease;z-index:50;}
+@keyframes popIn{0%{opacity:0;transform:scale(.4)}100%{opacity:1;transform:scale(1)}}
+.badge.bien{background:#ffe0f0;color:#8B1A4A;}
+.badge.mal{background:#fdecea;color:#a32;}
+.hint{font-size:.85em;color:#b06070;font-style:italic;margin-top:10px;animation:pulsarHint 1.5s infinite;}
+@keyframes pulsarHint{0%,100%{opacity:1}50%{opacity:.35}}
+.timeline{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0;}
+.salida-item{background:#fff0f5;border:2px solid #e0a0b0;border-radius:14px;padding:8px 12px;font-size:.85em;color:#6a2040;cursor:pointer;transition:all .25s;}
+.salida-item:hover,.salida-item.activa{background:linear-gradient(135deg,#c0395a,#e67e22);color:#fff;border-color:transparent;transform:scale(1.1);}
+.btn-quiero-wrap{display:flex;gap:14px;justify-content:center;margin-top:14px;flex-wrap:wrap;align-items:center;}
+.btn-si{
+  background:linear-gradient(135deg,#c0395a,#8B1A4A);color:#fff;
+  border:none;border-radius:50px;
+  padding:13px 28px;
+  font-size:1em;
+  font-family:'Georgia',serif;cursor:pointer;
+  box-shadow:0 4px 16px rgba(139,26,74,.5);
+  white-space:nowrap;
+  min-width:140px;
+  transition:box-shadow .35s, opacity .35s, filter .35s;
+}
+.btn-no{background:#fff;color:#c0395a;border:2px solid #c0395a;border-radius:50px;padding:13px 28px;font-size:1em;font-family:'Georgia',serif;cursor:pointer;transition:all .25s;white-space:nowrap;}
+.btn-si.bloqueado{opacity:.3;cursor:not-allowed;filter:grayscale(.9);}
+.btn-si.creciendo{transition:all .35s;}
+.btn-si.desbloqueado{animation:pulsarSi .9s infinite;}
+@keyframes pulsarSi{0%,100%{box-shadow:0 4px 16px rgba(139,26,74,.5)}50%{box-shadow:0 4px 36px rgba(139,26,74,1),0 0 0 8px rgba(192,57,90,.2)}}
+.cuanto-texto{font-size:2em;color:#c0395a;font-weight:bold;animation:cuantoAnim .5s ease;display:inline-block;margin:10px 0;}
+@keyframes cuantoAnim{0%{transform:scale(.3) rotate(-15deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+.final-card{animation:aparecerFinal .9s ease;}
+@keyframes aparecerFinal{0%{opacity:0;transform:scale(.6)}60%{transform:scale(1.06)}100%{opacity:1;transform:scale(1)}}
+.corazon-big{font-size:5em;animation:latir 1.1s infinite;display:inline-block;}
+.btn-reiniciar{background:transparent;border:2px solid #c0395a;color:#c0395a;border-radius:50px;padding:9px 26px;font-size:.92em;font-family:'Georgia',serif;cursor:pointer;margin-top:14px;transition:all .2s;}
+.btn-reiniciar:hover{background:#c0395a;color:#fff;}
+.resp-extra{font-size:.88em;color:#8B1A4A;font-style:italic;margin-top:10px;font-weight:bold;animation:popIn .4s ease;padding:8px 12px;background:#fff0f5;border-radius:12px;}
+.nav-btns{display:flex;gap:10px;margin-top:10px;}
+.btn-prev{background:transparent;border:2px solid #c0395a;color:#c0395a;border-radius:50px;padding:11px 22px;font-size:.95em;font-family:'Georgia',serif;cursor:pointer;transition:all .2s;flex:1;}
+.btn-prev:hover{background:#fff0f5;}
+.btn-next{flex:2;}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="card" id="card">
+    <div id="contenido"></div>
+    <div class="progreso" id="progreso"></div>
+  </div>
+</div>
+<script>
+var MM='🐒', MF='🐵';
+var noCount=0, paso=0, flotIv=[];
+var FONDOS=['linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)','linear-gradient(135deg,#2d1b3d,#1a0d2e,#3d1a4a)','linear-gradient(135deg,#1a2d1a,#0d3a1a,#1a4a2a)','linear-gradient(135deg,#3a1510,#5a2500,#7a3510)','linear-gradient(135deg,#0f1560,#1a2a8a,#0a0f4a)','linear-gradient(135deg,#0a253a,#0a1a2a,#102a3a)','linear-gradient(135deg,#2a0a1a,#4a0a2a,#6a1040)','linear-gradient(135deg,#1a0525,#3a0545,#5a1060)','linear-gradient(135deg,#0a2a1a,#0a4a2a,#0a3a1a)','linear-gradient(135deg,#4a0a2a,#8B1A4A,#c0395a)'];
+function setFondo(i){document.body.style.background=FONDOS[Math.min(i,FONDOS.length-1)];}
+function iniciarFlotantes(){
+  limpiarFlotantes();
+  var items=['🌸','🌺','🌹','💕','✨','🌷','💖','🌼','💗','🦋','⭐','🌻','💫','🍀','💝'];
+  function crear(){var el=document.createElement('div');el.className='flotante';el.textContent=items[Math.floor(Math.random()*items.length)];el.style.left=Math.random()*100+'vw';el.style.fontSize=(Math.random()*1.4+0.7)+'em';el.style.animationDuration=(Math.random()*5+5)+'s';el.style.animationDelay=(Math.random()*2)+'s';document.body.appendChild(el);setTimeout(function(){el.remove();},11000);}
+  for(var i=0;i<8;i++)crear();
+  var iv=setInterval(crear,700);flotIv.push(iv);
+}
+function limpiarFlotantes(){flotIv.forEach(function(iv){clearInterval(iv);});flotIv=[];document.querySelectorAll('.flotante').forEach(function(el){el.remove();});}
+function confetti(n){
+  n=n||18;var colors=['#c0395a','#e67e22','#f39c12','#e74c3c','#ff69b4','#9b59b6','#fff','#ffcc00'];var card=document.getElementById('card');
+  for(var i=0;i<n;i++){(function(){var p=document.createElement('div');p.className='pieza';var s=Math.random()*8+5;p.style.width=s+'px';p.style.height=s+'px';p.style.background=colors[Math.floor(Math.random()*colors.length)];p.style.left=Math.random()*90+'%';p.style.top='5px';p.style.setProperty('--dx',(Math.random()*130-65)+'px');p.style.animationDuration=(Math.random()*.9+1.2)+'s';card.appendChild(p);setTimeout(function(){p.remove();},2500);})();}
+}
+function badge(bien){var v=document.querySelector('.badge');if(v)v.remove();var b=document.createElement('div');b.className='badge '+(bien?'bien':'mal');b.textContent=bien?'💕 ¡Exacto!':'😏 ¡Inténtalo!';document.getElementById('card').appendChild(b);setTimeout(function(){b.remove();},2200);}
+function progreso(actual,total){var c=document.getElementById('progreso');c.innerHTML='';for(var i=0;i<total;i++){var p=document.createElement('div');p.className='punto'+(i<=actual?' activo':'');c.appendChild(p);}}
+function render(html){var c=document.getElementById('contenido');c.style.opacity='0';setTimeout(function(){c.innerHTML=html;c.style.transition='opacity .4s';c.style.opacity='1';},180);}
+function irA(p){paso=p;setFondo(p);switch(p){case 0:mostrarIntro();break;case 1:mostrarPerfMafer();break;case 2:mostrarPerfMartin();break;case 3:mostrarSanarate();break;case 4:mostrarInstagram();break;case 5:mostrarCorazon();break;case 6:mostrarCapital();break;case 7:mostrarSalidas();break;case 8:mostrarBesitos();break;case 9:mostrarCuanto();break;case 10:mostrarSientes();break;case 11:mostrarFinal();break;}}
+
+function mostrarIntro(){
+  iniciarFlotantes();document.getElementById('progreso').innerHTML='';
+  render('<div style="font-size:.75em;color:#c0a0b0;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">Una historia real</div><div style="font-size:1.65em;color:#8B1A4A;font-weight:bold;margin-bottom:6px;animation:brillar 2.5s infinite">Esta es la historia<br>de dos monitos</div><div style="font-size:.9em;color:#b06070;font-style:italic;margin-bottom:22px">que se encontraron sin querer queriendo...</div><div class="monos-row"><div class="mono-col"><div class="mono" onclick="irA(1)" style="cursor:pointer">'+MM+'</div><div class="mono-label">Martín</div></div><div class="corazon">💛</div><div class="mono-col"><div class="mono" onclick="irA(1)" style="cursor:pointer">'+MF+'</div><div class="mono-label">Mafer</div></div></div><div class="hint">👆 Toca a cualquiera de los dos para comenzar</div>');
+}
+
+function mostrarPerfMafer(){
+  document.getElementById('progreso').innerHTML='';setFondo(1);
+  render('<div style="font-size:.75em;color:#c0a0b0;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px">Conoce a la monita</div><div style="font-size:5em;margin:10px 0;display:inline-block;animation:latir 2s infinite">'+MF+'</div><div class="perfil-card"><div class="perfil-nombre">'+MF+' Mafer</div><div class="perfil-fila"><span>💇</span><span>Blanquita, bien colocha, algo alta y buen cuerpo — siempre perfecta 💅</span></div><div class="perfil-fila"><span>⚖️</span><span>Estudiando para abogada — futura licenciada en derecho</span></div><div class="perfil-fila"><span>🏢</span><span>Trabaja en la municipalidad</span></div><div class="perfil-fila"><span>💅</span><span>Pestañas, uñas, todo siempre arreglado — todos los días sin excepción</span></div><div class="perfil-fila"><span>🚲</span><span>Le gusta salir en bicicleta... aunque se cansa rapidito 😂</span></div><div class="perfil-fila"><span>🏃</span><span>Siempre ocupada o buscando qué hacer — nunca para quieta</span></div></div><div class="nav-btns"><button class="btn-prev" onclick="irA(0)">← Atrás</button><button class="btn-sig btn-next" onclick="irA(2)" style="margin-top:0">Y él... ✨</button></div>');
+}
+
+function mostrarPerfMartin(){
+  document.getElementById('progreso').innerHTML='';setFondo(0);
+  render('<div style="font-size:.75em;color:#c0a0b0;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px">Conoce al monito</div><div style="font-size:5em;margin:10px 0;display:inline-block;animation:latir 2s infinite">'+MM+'</div><div class="perfil-card"><div class="perfil-nombre">'+MM+' Martín</div><div class="perfil-fila"><span>🪖</span><span>Militar — Subteniente de Ingenieros. Sí, de los que mandan 😏</span></div><div class="perfil-fila"><span>💪</span><span>Alto, delgado, blanquito — con unas cejas que hablan solas 🤨</span></div><div class="perfil-fila"><span>😠</span><span>Cara de enojado... pero es el más chistoso del lugar</span></div><div class="perfil-fila"><span>⚽</span><span>Le encantan los deportes — no se queda quieto ni un segundo</span></div><div class="perfil-fila"><span>🎭</span><span>Ocurrente y chistoso — siempre tiene algo gracioso que decir</span></div><div class="perfil-fila"><span>💡</span><span>Nunca para, siempre activo, siempre en movimiento</span></div></div><div class="nav-btns"><button class="btn-prev" onclick="irA(1)">← Mafer</button><button class="btn-sig btn-next" onclick="empezarHistoria()" style="margin-top:0">¡Empezar la historia! 🚀</button></div>');
+}
+
+function empezarHistoria(){confetti(20);setTimeout(function(){irA(3);},500);}
+
+function mostrarSanarate(){
+  progreso(0,9);
+  render('<div class="cap-label">Capítulo 1</div><div class="titulo">El mismo pueblo, mundos distintos 🏘️</div><div class="monos-row" style="margin:16px 0"><div class="mono-col"><div style="font-size:4em">'+MM+'</div><div class="mono-label">Martín</div></div><div style="font-size:2em;align-self:center">🏘️</div><div class="mono-col"><div style="font-size:4em">'+MF+'</div><div class="mono-label">Mafer</div></div></div><div class="narrativa"><span class="narrativa-emoji">🌅</span>Los dos son de Sanarate. El mismo pueblo, el mismo cielo, las mismas calles.<br><br>Pero Martín trabajaba en la capital entre semana. Días largos, lejos, siempre activo — y sin poder verla.<br><br><em>"Quisiera verla todos los días, pero la distancia tiene su precio. Y sin embargo, valía cada kilómetro."</em><div class="narrativa-firma">— El principio de todo 🌄</div></div><button class="btn-sig" onclick="irA(4)">Continuar ✨</button>');
+}
+
+function mostrarInstagram(){
+  progreso(1,9);
+  render('<div class="cap-label">Capítulo 2</div><div class="titulo">El Stalker 📱</div><div style="text-align:center;margin:14px 0;font-size:5em;animation:bailarMono .7s ease infinite;display:inline-block">'+MM+'</div><div class="narrativa"><span class="narrativa-emoji">👀</span>Martín la seguía en Instagram. Veía <em>todas</em> sus historias. Sin saltarse ninguna.<br><br>Un día agarró valor y le escribió. Silencio. Le volvió a escribir. Nada. Siguió intentando... y ella ahí, haciéndose la que no había visto. 😏<br><br><em>Pero Martín no se rindió. Porque cuando algo vale la pena, uno persiste.</em><div class="narrativa-firma">— La paciencia de este monito fue épica 😂</div></div><div class="quiz-pregunta">🤔 ¿Cuántas veces le escribió antes de que contestaras?</div><div class="opciones" id="ops-ig"><button class="opcion" onclick="respIg(this,false)">🅰️ Una o dos veces</button><button class="opcion" onclick="respIg(this,true)">🅱️ Varias veces</button><button class="opcion" onclick="respIg(this,false)">🅾️ Una sola vez</button></div><button class="btn-sig" id="btn-ig" style="display:none" onclick="irA(5)">Continuar ✨</button>');
+}
+function respIg(btn,bien){var ops=document.querySelectorAll('#ops-ig .opcion');ops.forEach(function(b){b.disabled=true;});if(bien){btn.classList.add('correcta');badge(true);confetti(20);document.body.style.background='linear-gradient(135deg,#0d3b0d,#1a6b1a)';setTimeout(function(){setFondo(2);},900);setTimeout(function(){document.getElementById('btn-ig').style.display='block';},600);}else{btn.classList.add('incorrecta');badge(false);document.body.style.background='linear-gradient(135deg,#3b0d0d,#6b1a1a)';setTimeout(function(){setFondo(1);},600);setTimeout(function(){btn.classList.remove('incorrecta');ops.forEach(function(b){b.disabled=false;});btn.disabled=true;},700);}}
+
+function mostrarCorazon(){
+  progreso(2,9);
+  render('<div class="cap-label">Capítulo 3</div><div class="titulo">El corazón que lo cambió todo ❤️</div><div style="text-align:center;margin:14px 0"><div style="font-size:5em">'+MF+'</div><div style="font-size:2.8em;animation:latir 1s infinite;display:inline-block;margin-top:4px">❤️</div></div><div class="narrativa"><span class="narrativa-emoji">💬</span>Un día, sin previo aviso, Mafer le dio corazón a una historia de Martín.<br><br>¿Accidente? ¿A propósito? Eso solo ella lo sabe... Pero ese pequeño corazón abrió una puerta enorme.<br><br>De ahí empezaron a hablar de verdad. Y cuando le dio su WhatsApp, todo cambió. <em>Todos los días. Sin falta.</em><div class="narrativa-firma">— Un corazón que valió más que mil palabras 💬</div></div><div class="quiz-pregunta">😏 Seamos honestas... ¿ese corazón fue a propósito?</div><div class="opciones" id="ops-cor"><button class="opcion" onclick="respCor(this,\'a\')">🅰️ Fue un accidente total, juro</button><button class="opcion" onclick="respCor(this,\'b\')">🅱️ Me hacía la loca pero ya quería 😏</button><button class="opcion" onclick="respCor(this,\'c\')">🅾️ Obvio a propósito ¿qué tiene? 😎</button></div><div id="cor-resp"></div><button class="btn-sig" id="btn-cor" style="display:none" onclick="irA(6)">Continuar ✨</button>');
+}
+function respCor(btn,tipo){document.querySelectorAll('#ops-cor .opcion').forEach(function(b){b.disabled=true;});btn.classList.add('correcta');confetti(16);var msgs={a:'¡Claaaro, "accidente"... 😂 Qué conveniente ese dedo!',b:'¡Lo sabíamos! La que se hacía la loca tenía sus planes 😂💛',c:'¡Respeto la honestidad! Directa y sin rodeos 😎💕'};document.getElementById('cor-resp').innerHTML='<div class="resp-extra">'+msgs[tipo]+'</div>';setTimeout(function(){document.getElementById('btn-cor').style.display='block';},700);}
+
+function mostrarCapital(){
+  progreso(3,9);
+  render('<div class="cap-label">Capítulo 4</div><div class="titulo">El día que todo se volvió real 🏙️</div><div class="monos-row" style="margin:16px 0"><div class="mono-col"><div style="font-size:4em">'+MM+'</div><div class="mono-label">Martín</div></div><div style="font-size:2em;align-self:center;animation:latir 1s infinite;display:inline-block">🤝</div><div class="mono-col"><div style="font-size:4em">'+MF+'</div><div class="mono-label">Mafer</div></div></div><div class="narrativa"><span class="narrativa-emoji">🗓️</span><strong style="color:#8B1A4A">Miércoles 25 de marzo.</strong><br><br>Ella viajó a la capital. Martín ya estaba ahí. Y por fin, después de mensajes, corazones e intentos... se vieron.<br><br>Lo que había empezado en una pantalla, ahora estaba frente a frente. Real. De verdad.<br><br><em>"Ese día entendió que todo lo que esperó había valido la pena."</em><div class="narrativa-firma">— La fecha que no van a olvidar 🌆</div></div><div class="quiz-pregunta">✨ ¿Cómo te sentiste cuando lo viste por primera vez?</div><div class="opciones" id="ops-cap"><button class="opcion" onclick="respCap(this,\'a\')">🅰️ Nerviosa, la verdad</button><button class="opcion" onclick="respCap(this,\'b\')">🅱️ Tranquila, como si ya lo conociera</button><button class="opcion" onclick="respCap(this,\'c\')">🅾️ Raro pero bonito a la vez</button></div><div id="cap-resp"></div><button class="btn-sig" id="btn-cap" style="display:none" onclick="irA(7)">Continuar ✨</button>');
+}
+function respCap(btn,tipo){document.querySelectorAll('#ops-cap .opcion').forEach(function(b){b.disabled=true;});btn.classList.add('correcta');confetti(14);var msgs={a:'¡Normal! Él también estaba nervioso aunque no lo admita 😂',b:'¡Eso es señal de que era el indicado! 💛',c:'Los mejores momentos siempre son así de especiales 🌟'};document.getElementById('cap-resp').innerHTML='<div class="resp-extra">'+msgs[tipo]+'</div>';setTimeout(function(){document.getElementById('btn-cap').style.display='block';},600);}
+
+function mostrarSalidas(){
+  progreso(4,9);
+  var salidas=[{e:'🍽️',l:'A comer'},{e:'💃',l:'A bailar'},{e:'🎬',l:'Al cine'},{e:'🌳',l:'Al terreno'},{e:'🚗',l:'En el carro'},{e:'😋',l:'Comidas ricas'}];
+  var msgs={'A comer':'¡Le encanta verte disfrutar la comida! 🍽️💛','A bailar':'Bailando juntos es donde mejor se la pasan 💃🕺','Al cine':'Oscuridad, pantalla grande y los dos... 🎬💕','Al terreno':'Aire fresco y buena compañía, sin igual 🌳✨','En el carro':'Las mejores conversaciones nacen en el carro 🚗💬','Comidas ricas':'¡El camino al corazón es por el estómago! 😋💛'};
+  window._salMsgs=msgs;
+  var items=salidas.map(function(s,i){return '<div class="salida-item" id="sal-'+i+'" onclick="tocarSalida('+i+',\''+s.l+'\')">'+s.e+' '+s.l+'</div>';}).join('');
+  render('<div class="cap-label">Capítulo 5</div><div class="titulo">12 salidas y las que faltan... 🗓️</div><div class="monos-row" style="margin:12px 0"><div class="mono-col"><div style="font-size:3.5em">'+MM+'</div><div class="mono-label" style="font-size:.75em">Martín</div></div><div style="font-size:1.5em;align-self:center">❤️</div><div class="mono-col"><div style="font-size:3.5em">'+MF+'</div><div class="mono-label" style="font-size:.75em">Mafer</div></div></div><div class="narrativa" style="padding:14px 16px"><span class="narrativa-emoji">✨</span>Desde ese 25 de marzo se han visto 12 veces. Salidas a comer, a bailar, al cine, al terreno, en el carro... cada vez diferente, cada vez más especial.</div><div class="quiz-pregunta">👇 Toca la salida que más te gustó:</div><div class="timeline">'+items+'</div><div id="sal-resp" style="min-height:40px;margin:8px 0;font-size:.9em;color:#8B1A4A;font-style:italic;font-weight:bold"></div><button class="btn-sig" id="btn-sal" style="display:none" onclick="irA(8)">Continuar ✨</button>');
+}
+function tocarSalida(i,label){document.querySelectorAll('.salida-item').forEach(function(e){e.classList.remove('activa');});document.getElementById('sal-'+i).classList.add('activa');document.getElementById('sal-resp').textContent=window._salMsgs[label]||'¡Qué bonito momento! 💛';confetti(12);document.getElementById('btn-sal').style.display='block';}
+
+function mostrarBesitos(){
+  progreso(5,9);
+  render('<div class="cap-label">Capítulo 6</div><div class="titulo">Lo que más le encanta 😘</div><div class="monos-row" style="margin:16px 0"><div class="mono-col"><div style="font-size:4em">'+MM+'</div><div class="mono-label">Martín</div></div><div style="font-size:2.2em;align-self:center;animation:latir 1s infinite;display:inline-block;margin-bottom:14px">😘</div><div class="mono-col"><div style="font-size:4em">'+MF+'</div><div class="mono-label">Mafer</div></div></div><div class="narrativa"><span class="narrativa-emoji">💋</span>Hay algo que Martín no puede describir bien con palabras...<br><br>Es ese momento en que Mafer le da un besito. Así, de la nada, sin aviso.<br><br><em>Ese pequeño gesto lo derrite por completo. Le alegra el día, le cambia el humor, le recuerda que esto que tienen es muy especial.</em><br><br><strong style="color:#8B1A4A">"Un besito tuyo vale más que mil palabras, Mafer."</strong><div class="narrativa-firma">— El monito, completamente derretido 😘💛</div></div><div class="quiz-pregunta">💋 ¿Sabes el efecto que le causas con un besito?</div><div class="opciones" id="ops-bes"><button class="opcion" onclick="respBes(this,\'a\')">🅰️ Sí, lo sé perfectamente 😏</button><button class="opcion" onclick="respBes(this,\'b\')">🅱️ No sabía que tanto 🥺</button><button class="opcion" onclick="respBes(this,\'c\')">🅾️ Me lo imagino 😊</button></div><div id="bes-resp"></div><button class="btn-sig" id="btn-bes" style="display:none" onclick="irA(9)">Continuar ✨</button>');
+}
+function respBes(btn,tipo){document.querySelectorAll('#ops-bes .opcion').forEach(function(b){b.disabled=true;});btn.classList.add('correcta');confetti(18);var msgs={a:'¡Entonces ya sabes el poder que tienes! Úsalo bien 😂💛',b:'¡Pues ahora ya lo sabes! Cada besito lo hace feliz 🥺💕',c:'¡Es mucho más de lo que imaginas! 😘💛'};document.getElementById('bes-resp').innerHTML='<div class="resp-extra">'+msgs[tipo]+'</div>';setTimeout(function(){document.getElementById('btn-bes').style.display='block';},700);}
+
+function mostrarCuanto(){
+  progreso(6,9);
+  render('<div class="cap-label">Capítulo 7</div><div class="titulo">El más gracioso del mundo 😂</div><div style="text-align:center;margin:14px 0;font-size:5em;animation:bailarMono .7s ease infinite;display:inline-block">'+MM+'</div><div class="narrativa"><span class="narrativa-emoji">🎭</span>Martín es ocurrente. Siempre tiene algo que decir, siempre la anda haciendo reír sin esfuerzo.<br><br>Cara de enojado pero el más chistoso de todos. Y tiene una frase que sale cuando algo lo sorprende o emociona...<div class="narrativa-firma">— ¿Ya la escuchaste alguna vez? 👀</div></div><div class="quiz-pregunta">😂 ¿Cuál es la frase favorita de Martín?</div><div class="opciones" id="ops-cu"><button class="opcion" onclick="respCuanto(this,false)">🅰️ "No puede ser..."</button><button class="opcion" onclick="respCuanto(this,true)">🅱️ "¡¡¡Cuantooooo!!!"</button><button class="opcion" onclick="respCuanto(this,false)">🅾️ "Eso sí que no"</button></div><div id="cuanto-show" style="display:none;margin:14px 0;text-align:center"><div class="cuanto-texto">¡¡¡CUANTOOOOO!!!</div><div style="font-size:1.5em;margin-top:4px">😂🎉</div></div><button class="btn-sig" id="btn-cu" style="display:none" onclick="irA(10)">Continuar ✨</button>');
+}
+function respCuanto(btn,bien){var ops=document.querySelectorAll('#ops-cu .opcion');ops.forEach(function(b){b.disabled=true;});if(bien){btn.classList.add('correcta');badge(true);confetti(25);document.getElementById('cuanto-show').style.display='block';document.body.style.background='linear-gradient(135deg,#0d3b0d,#1a6b1a)';setTimeout(function(){setFondo(6);},900);setTimeout(function(){document.getElementById('btn-cu').style.display='block';},700);}else{btn.classList.add('incorrecta');badge(false);document.body.style.background='linear-gradient(135deg,#3b0d0d,#6b1a1a)';setTimeout(function(){setFondo(6);},600);setTimeout(function(){btn.classList.remove('incorrecta');ops.forEach(function(b){b.disabled=false;});btn.disabled=true;},700);}}
+
+function mostrarSientes(){
+  progreso(7,9);noCount=0;
+  render('<div class="cap-label">Capítulo 8 — El más importante</div><div class="titulo">El monito tiene algo que decirte... 💛</div><div class="monos-row" style="margin:14px 0"><div class="mono-col"><div style="font-size:4em">'+MM+'</div><div class="mono-label">Martín</div></div><div style="font-size:2em;align-self:center;animation:latir 1s infinite;display:inline-block">💛</div><div class="mono-col"><div style="font-size:4em">'+MF+'</div><div class="mono-label">Mafer</div></div></div><div class="narrativa"><span class="narrativa-emoji">💭</span>Hablamos todos los días y eso me importa mucho.<br>Me preocupo por ti sin que me lo pidas.<br>Pienso en ti cuando menos lo espero.<br>Me haces sentir bien, diferente, feliz.<br><br><em>Poco tiempo, sí... pero el corazón no mide el tiempo.<br>Mide lo que siente.</em><br><br><strong style="color:#8B1A4A">Y yo creo que ya te quiero, Mafer.</strong><div class="narrativa-firma">— Martín Alexander 💛</div></div><div class="quiz-pregunta" style="margin:14px 0 10px">Y tú... ¿qué sientes por él?</div><div class="btn-quiero-wrap"><button class="btn-si bloqueado" id="btn-si" onclick="presionarSi()">💛 Ya lo quiero</button><button class="btn-no" id="btn-no" onclick="presionarNo()">No sé... 🤔</button></div><div id="no-msg" style="min-height:30px;margin-top:12px;font-size:.88em;color:#c0395a;font-style:italic;font-weight:bold"></div>');
+}
+var noMsgs=['¿Segura...? 🤔 Piénsalo bien...','Ese otro botón te está mirando fijito 👀','Mmm el botoncito rosado se está impacientando... 💕','¡Ya casi! Solo un poquito más de valor 😏','¡Vamos! Él te está esperando con todo 💛','¡Ya puedes, el botón te está llamando! 🌟','¡Anda, presionalo ya! Sé que quieres 😄💛','¡Último chance antes de que el botón se enoje! 😂'];
+function presionarNo(){
+  noCount++;
+  document.getElementById('no-msg').textContent=noMsgs[Math.min(noCount-1,noMsgs.length-1)];
+  document.body.style.background='linear-gradient(135deg,#3b0d0d,#6b1a1a)';
+  setTimeout(function(){setFondo(7);},500);
+  var btnSi=document.getElementById('btn-si');
+  if(noCount>=8){
+    btnSi.classList.remove('bloqueado');
+    btnSi.classList.remove('creciendo');
+    btnSi.classList.add('desbloqueado');
+    btnSi.style.transform='';
+    document.getElementById('no-msg').textContent='💛 ¡Ya puedes presionarlo! ¡Él te está esperando!';
+    document.getElementById('btn-no').style.opacity='.2';
+    document.getElementById('btn-no').style.pointerEvents='none';
+  } else {
+    btnSi.classList.add('creciendo');
+    var s=1+(noCount*0.12);
+    btnSi.style.transform='scale('+Math.min(s,2.1)+')';
+    btnSi.style.boxShadow='0 4px '+(16+noCount*5)+'px rgba(139,26,74,'+(0.4+noCount*.08)+')';
+  }
+}
+function presionarSi(){if(document.getElementById('btn-si').classList.contains('bloqueado'))return;confetti(40);setTimeout(function(){irA(11);},400);}
+
+function mostrarFinal(){
+  limpiarFlotantes();iniciarFlotantes();
+  document.body.style.background='linear-gradient(135deg,#4a0a2a,#8B1A4A,#c0395a)';
+  document.getElementById('progreso').innerHTML='';
+  for(var i=0;i<70;i++){(function(d){setTimeout(function(){confetti(1);},d);})(i*55);}
+  render('<div class="final-card"><div style="font-size:.8em;color:#c0a0b0;font-style:italic;margin-bottom:10px;letter-spacing:2px">De Martín, con todo</div><div class="corazon-big">💛</div><div class="monos-row" style="margin:16px 0 12px"><div class="mono-col"><div style="font-size:4em">'+MM+'</div><div class="mono-label">Martín</div></div><div style="font-size:2em;align-self:center;animation:latir 1s infinite;display:inline-block">💛</div><div class="mono-col"><div style="font-size:4em">'+MF+'</div><div class="mono-label">Mafer</div></div></div><div style="font-size:.97em;color:#4a2010;line-height:1.85;font-style:italic;margin:0 4px;text-align:left">Mafer, hay cosas que no se explican fácil.<br><br>Me gusta <strong style="color:#8B1A4A">tu forma de ser</strong>, esa que tienes solo tú.<br>Me gusta <strong style="color:#8B1A4A">cómo me tratas</strong>, con esa atención genuina.<br>Me gusta <strong style="color:#8B1A4A">lo linda que eres</strong>, por dentro y por fuera.<br>Me gusta <strong style="color:#8B1A4A">lo que tenemos</strong>, aunque todavía sea un comienzo.<br>Y me encantan <strong style="color:#8B1A4A">tus besitos</strong>... esos de la nada que me alegran el día entero. 😘<br><br>Me preocupo por ti. Pienso en ti. Hablamos todos los días y eso es lo mejor de mi día.<br><br><strong style="color:#8B1A4A;font-size:1.06em">No sé exactamente qué es esto todavía,<br>pero sé que ya te quiero, Mafer.<br>Y que cada salida, cada mensaje,<br>cada besito... vale absolutamente todo.</strong></div><div style="margin:20px 0;font-size:2.3em;letter-spacing:8px;animation:latir 1s infinite;display:inline-block">💛🌹💛</div><div style="font-size:.88em;color:#c0a0b0;font-style:italic;margin-bottom:4px">— Martín Alexander Contreras</div><button class="btn-reiniciar" onclick="location.reload()">🔄 Leer de nuevo</button></div>');
+}
+
+irA(0);
+</script>
+</body>
+</html>
